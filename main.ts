@@ -5,23 +5,23 @@ let USS = 0
 let Line_Check = 0
 let Count = 0
 function Left () {
-    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 70)
-    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 45)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 85)
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 70)
     LD = 0
 }
 function Hard_Right () {
-    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 170)
-    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 30)
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 180)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 35)
     LD = 1
 }
 function Hard_Left () {
-    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 180)
-    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 25)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 190)
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 30)
     LD = 0
 }
 function Right () {
-    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 70)
-    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 45)
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 85)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 70)
     LD = 1
 }
 function Update_Sensor () {
@@ -33,7 +33,7 @@ function Avoid () {
     Line_Check = 0
     if (LD == 0) {
         if (Line_Check == 0) {
-            while (USS < 20) {
+            for (let index = 0; index < 5; index++) {
                 Update_Sensor()
                 if (IRL == 0 || IRR == 0) {
                     Line_Check = 1
@@ -46,7 +46,7 @@ function Avoid () {
             }
         }
         if (Line_Check == 0) {
-            for (let index = 0; index < 10; index++) {
+            for (let index = 0; index < 15; index++) {
                 Update_Sensor()
                 if (IRL == 0 || IRR == 0) {
                     Line_Check = 1
@@ -71,14 +71,13 @@ function Avoid () {
             }
         }
         if (Line_Check == 0) {
-            for (let index = 0; index < 20; index++) {
+            for (let index = 0; index < 10; index++) {
                 Update_Sensor()
                 if (IRL == 0 || IRR == 0) {
                     Line_Check = 1
                     break;
                 } else {
                     maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 255)
-                    basic.pause(2000)
                 }
                 basic.pause(100)
             }
@@ -109,7 +108,7 @@ function Avoid () {
             }
         }
     } else if (LD == 1) {
-        while (USS < 20) {
+        for (let index = 0; index < 5; index++) {
             Update_Sensor()
             if (IRL == 0 || IRR == 0) {
                 Line_Check = 1
@@ -121,7 +120,7 @@ function Avoid () {
             basic.pause(100)
         }
         if (Line_Check == 0) {
-            for (let index = 0; index < 10; index++) {
+            for (let index = 0; index < 15; index++) {
                 Update_Sensor()
                 if (IRL == 0 || IRR == 0) {
                     Line_Check = 1
@@ -146,14 +145,13 @@ function Avoid () {
             }
         }
         if (Line_Check == 0) {
-            for (let index = 0; index < 20; index++) {
+            for (let index = 0; index < 10; index++) {
                 Update_Sensor()
                 if (IRL == 0 || IRR == 0) {
                     Line_Check = 1
                     break;
                 } else {
                     maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 255)
-                    basic.pause(2000)
                 }
                 basic.pause(100)
             }
@@ -185,15 +183,15 @@ function Avoid () {
         }
     }
 }
+loops.everyInterval(50, function () {
+    Update_Sensor()
+})
 basic.forever(function () {
     Update_Sensor()
     if (USS < 25) {
-        for (let index = 0; index < 2; index++) {
-            basic.pause(100)
-            Update_Sensor()
-        }
+        basic.pause(200)
         Avoid()
-    } else if (Count > 75) {
+    } else if (Count > 100) {
         Update_Sensor()
         if (randint(0, 1) == 0) {
             LD = 0
@@ -222,7 +220,4 @@ basic.forever(function () {
         Left()
         Count = 0
     }
-})
-loops.everyInterval(100, function () {
-    Update_Sensor()
 })
