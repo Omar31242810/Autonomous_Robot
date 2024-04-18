@@ -36,8 +36,16 @@ loops.everyInterval(50, function () {
 })
 basic.forever(function () {
     if (USS < 20) {
-    	
+        for (let index = 0; index < 3; index++) {
+            basic.pause(100)
+            Update_Sensor()
+        }
+        Avoid()
     } else if (IRL == 0 && IRR == 0) {
+        for (let index = 0; index < 3; index++) {
+            basic.pause(100)
+            Update_Sensor()
+        }
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 0)
     } else if (IRL == 1 && IRR == 1) {
         if (LD == 0) {
